@@ -9,7 +9,9 @@ resource "azurerm_public_ip" "webserver" {
   name                = "${var.labelPrefix}A05PublicIP"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Dynamic"
+  # allocation_method   = "Dynamic"
+  allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 # Define the virtual network
@@ -99,7 +101,8 @@ resource "azurerm_linux_virtual_machine" "webserver" {
   resource_group_name   = azurerm_resource_group.rg.name
   location              = azurerm_resource_group.rg.location
   network_interface_ids = [azurerm_network_interface.webserver.id]
-  size                  = "Standard_B1s"
+  # size                  = "Standard_B1s"
+  size                  = "Standard_B2ats_v2"
 
   os_disk {
     name                 = "${var.labelPrefix}A05OSDisk"
